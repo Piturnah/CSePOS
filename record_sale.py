@@ -1,8 +1,8 @@
 """Peter and Kit
 Module responsible for recording a customer purchase
 
-import with `import record_sale`
-create instance with `foo = record_sale.RecordSale(<list of barcodes>)`
+import with `import record_sale as r`
+create instance with `foo = r.RecordSale(<list of barcodes>)`
 access with `foo.<method>`
 """
 
