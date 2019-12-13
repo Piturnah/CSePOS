@@ -9,6 +9,7 @@ methods:
 getPurchases() returns purchases in a sale
 getTotalBill() returns the total bill in pence
 takePayment(amount, customer_ID) records a payment made to db
+getNames() returns list of names of the purchased items
 """
 import sqlite3
 import os
