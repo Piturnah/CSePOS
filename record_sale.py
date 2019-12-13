@@ -29,7 +29,7 @@ def _fetchPrice(purchase):
     c.execute('SELECT * FROM ProductDetails WHERE barcode=?', (purchase,))
     rows = c.fetchone()
 
-    return rows[2]
+    return rows[1]
 
 class RecordSale:
 
