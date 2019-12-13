@@ -24,12 +24,25 @@ def _totalBill(purchases):
 
 def _fetchPrice(purchase):
     # takes SINGLE barcode and returns its price from database
-    productdb = sqlite3.connect('products.db')
-    c = productdb.cursor()
+    product_db = sqlite3.connect('products.db')
+    c = product_db.cursor()
     c.execute('SELECT * FROM ProductDetails WHERE barcode=?', (purchase,))
     rows = c.fetchone()
 
     return rows[1]
+
+def _fetchNames(barcode_list):
+    names = []
+
+    product_db = sqlite3.connect('products.db')
+    c = product_db.cursor()
+    for barcode in barcode_list:
+        c.execute('SELECT * FROM ProductDetails WHERE barcode=?', (barcode,))
+        rows = c.fetchone()
+
+        names.append(rows[2])
+
+    return names
 
 class RecordSale:
 
@@ -40,6 +53,9 @@ class RecordSale:
     # class stuff
     def __init__(self, purchases):
         self._purchases = purchases
+
+    def getNames(self):
+        return _fetchNames(self._purchases)
         
     def getPurchases(self):
         return self._purchases
