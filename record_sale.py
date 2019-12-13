@@ -47,18 +47,3 @@ class RecordSale:
     def getTotalBill(self):
         return _totalBill(self._purchases)
 
-    def dbCheck():
-        if not os.path.isfile('products.db'):
-            product_db = sqlite3.connect("products.db")
-            c = product_db.cursor()
-
-            c.execute('''CREATE TABLE ProductDetails
-            (barcode text,
-            price int,
-            name text,
-            stock int,
-            restock_needed int
-            )''')
-            
-            product_db.commit()
-            product_db.close()
