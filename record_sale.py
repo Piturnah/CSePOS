@@ -30,7 +30,6 @@ class RecordSale:
         # record amount paid by customer in db
         pass
 
-    
     # class stuff
     def __init__(self, purchases):
         self._purchases = purchases
