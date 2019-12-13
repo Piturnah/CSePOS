@@ -10,6 +10,9 @@ getPurchases() returns purchases in a sale
 getTotalBill() returns the total bill in pence
 takePayment(amount, customer_ID) records a payment made to db
 """
+import sqlite3
+import os
+
 
 def _totalBill(purchases):
 
@@ -21,8 +24,12 @@ def _totalBill(purchases):
 
 def _fetchPrice(purchase):
     # takes SINGLE barcode and returns its price from database
-    return 0
-    
+    productdb = sqlite3.connect('products.db')
+    c = productdb.cursor()
+    c.execute('SELECT * FROM ProductDetails WHERE barcode=?', (purchase,))
+    rows = c.fetchone()
+
+    return rows[2]
 
 class RecordSale:
 
@@ -39,3 +46,19 @@ class RecordSale:
 
     def getTotalBill(self):
         return _totalBill(self._purchases)
+
+    def dbCheck():
+        if not os.path.isfile('products.db'):
+            product_db = sqlite3.connect("products.db")
+            c = product_db.cursor()
+
+            c.execute('''CREATE TABLE ProductDetails
+            (barcode text,
+            price int,
+            name text,
+            stock int,
+            restock_needed int
+            )''')
+            
+            product_db.commit()
+            product_db.close()
