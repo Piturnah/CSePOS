@@ -2,33 +2,41 @@
 Module responsible for recording a customer purchase
 
 import with `import record_sale as r`
-create instance with `foo = r.RecordSale(<list of barcodes>)`
-access with `foo.<method>`
+create instance with `new_sale = r.RecordSale(<list of barcodes>)`
+access with `new_sale.<method>`
+
+methods:
+getPurchases() returns purchases in a sale
+getTotalBill() returns the total bill in pence
+takePayment(amount, customer_ID) records a payment made to db
 """
 
-def totalBill(purchases):
+def _totalBill(purchases):
 
     total_price = 0
     for purchase in purchases:
-        total_price += fetchPrice(purchase)
+        total_price += _fetchPrice(purchase)
         
     return total_price
 
-def fetchPrice(purchase):
+def _fetchPrice(purchase):
     # takes SINGLE barcode and returns its price from database
     return 0
     
-def takePayment(amount, customer_ID):
-    # record amount paid by customer in db
-    pass
 
 class RecordSale:
+
+    def takePayment(amount, customer_ID):
+        # record amount paid by customer in db
+        pass
+
     
+    # class stuff
     def __init__(self, purchases):
-        self.purchases = purchases
+        self._purchases = purchases
         
     def getPurchases(self):
-        return self.purchases
+        return self._purchases
 
     def getTotalBill(self):
-        return totalBill(self.purchases)
+        return _totalBill(self._purchases)
