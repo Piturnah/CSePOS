@@ -13,10 +13,11 @@ def addRecords_p(database):
         bar = input("Input the barcode: ")
         price = int(input("Input the price: "))
         name = input("Input the name: ")
-        stock = int(input("Input current stock: "))
+        stock_shelves = int(input("Input current stock on the shelves: "))
+        stock_back = int(input("Input the current stock that is being stored: "))
         restock = int(input("Input the restock needed value : "))
 
-        items = [bar, price, name, stock, restock]
+        items = [bar, price, name, stock_shelves, stock_back, restock]
 
     else:
         print("No record adding configured")
@@ -24,7 +25,7 @@ def addRecords_p(database):
         
     # additional conditionals can be used, or switch dict, to add records to other dbs
 
-    c.execute('INSERT INTO ProductDetails VALUES (?, ?, ?, ?, ?)', items)
+    c.execute('INSERT INTO ProductDetails VALUES (?, ?, ?, ?, ?, ?)', items)
 
     conn.commit()
 
@@ -42,7 +43,8 @@ def dbCheck(database):
             (barcode text,
             price int,
             name text,
-            stock int,
+            stock_shelves int,
+            stock_back int,
             restock_needed int
             )''')
         
