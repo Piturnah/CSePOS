@@ -29,8 +29,7 @@ def backroom_reorder(barcode):
 
 def shelf_reorder(barcode):
     instock = _fetch(barcode,3)
-    restocklimit = _fetch(barcode,5)
-    if instock < restocklimit:
+    if instock < 1:
         return "Need restock for shelves"
     else:
         return "No restock for shelves needed"
