@@ -31,6 +31,16 @@ def addRecords_p(database):
 
     conn.close()
 
+def displayDB(database):
+    conn = sqlite3.connect(database)
+    c = conn.cursor()
+
+    c.execute("SELECT * FROM ProductDetails")
+    rows = c.fetchall()
+
+    for row in rows:
+        print(row)
+
 
 def dbCheck(database):
     # takes string containing name of db
