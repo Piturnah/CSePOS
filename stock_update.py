@@ -29,8 +29,7 @@ def backroom_reorder(barcode):
 
 def shelf_reorder(barcode):
     instock = _fetch(barcode,3)
-    restocklimit = _fetch(barcode,5)
-    if instock < restocklimit:
+    if instock < 1:
         return "Need restock for shelves"
     else:
         return "No restock for shelves needed"
@@ -65,7 +64,7 @@ def stock_return():
     texttoreturn = "Barcode   Shelf Stock   Backroom Stock\n<><><><><><><><><><><><>\n"
     product_db = sqlite3.connect('products.db')
     c = product_db.cursor()
-    barcodes = [barcodes[0] for barcodes in c.execute("SELECT barcodes FROM ProductDetails")]
+    barcodes = [barcode[0] for barcode in c.execute("SELECT barcode FROM ProductDetails")]
     for n in range (0,len(barcodes)):
         tempbarcode = barcodes[n]
         shelftemp = _fetch(tempbarcode,3)
