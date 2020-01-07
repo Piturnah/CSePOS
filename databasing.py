@@ -2,6 +2,12 @@ import sqlite3
 import os
 import time
 
+"""helper functions for databasing
+addRecords_p("products.db") - add product to db
+displayDB("products.db") - display db
+dbCheck(db) check if db exists, create if not
+"""
+
 def addRecords_p(database):
     dbCheck(database) # check if db exists, if not create
 
