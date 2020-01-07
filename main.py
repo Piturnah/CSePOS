@@ -4,13 +4,13 @@ import csv
 
 def reciet(priceDict, bill):
     #used to from, and print the reciet
-    print('''____This is the Reciet____
-Items:''')
+    print('''\n\n____This is the Receipt____\n
+Items:\n''')
     for name in priceDict:
         print(name + ": £" + str(priceDict[name] / 100))
         
     total_print = float(bill)/100 #from p to £-p    
-    print('\nTotal: £' + str(total_print))
+    print('________________\nTotal: £' + str(total_print))
 
 
 
@@ -24,17 +24,18 @@ def transaction():
             item = False
         else:
             item = True
-            barcodes.append(barcodes)
-            stock_update(barcode) #sending items to stock
+            barcodes.append(barcode)
+            """undo comment below when fin v"""
+            #stock_update(barcode) #sending items to stock
             
     new_sale = r.RecordSale(barcodes) #sends items to get list of the items
     names = new_sale.getPurchases()
     bill = new_sale.getTotalBill()
 
-    print('Total to pay: £' + float(bill)/100)
+    print('Total to pay: £' + str(float(bill)/100))
     
     
-    new_sale.takePayment(bill, 0) # change second argument later
+    new_sale.takePayment(bill) # change second argument later
     
     reciet(new_sale.getNamesAndPrices(), bill)
 
@@ -42,7 +43,7 @@ def transaction():
 def main_menu():
     #This is the main menu
     print('''   _____Main_Menu____
-    1.Make transation
+    1.Make transaction
     2.Stock check
     3.Close
     

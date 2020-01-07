@@ -34,8 +34,7 @@ def _fetchPrice(purchase):
     return rows[1]
 
 def _fetchName(barcode):
-    names = []
-
+    # takes a single barcode and returns its name from database
     product_db = sqlite3.connect('products.db')
     c = product_db.cursor()
     c.execute('SELECT * FROM ProductDetails WHERE barcode=?', (barcode,))
