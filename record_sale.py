@@ -14,6 +14,7 @@ getNamesAndPrices() returns dict of <str : int> for names and prices
 """
 import sqlite3
 import os
+import csv
 
 
 def _totalBill(purchases):
@@ -42,12 +43,19 @@ def _fetchName(barcode):
 
     return rows[2]
 
+def _recordPayment(amount, items):
+    # records transaction to db
+    transaction_db = sqlite3.connect('transactions.db')
+    c = transaction_db.cursor()
+    c.execute('SELECT * FROM Transactions WHERE ID = (SELECT MAX(ID) FROM Transactions)')
+    record = c.fetchone()
+
+    s = ", "
+    c.execute('INSERT INTO Transactions VALUES (?, ?, ?)', [record[0] + 1, amount, s.join(items)])
+    transaction_db.commit()
+
 
 class RecordSale:
-
-    def takePayment(amount, customer_ID):
-        # record amount paid by customer in db
-        pass
 
     # class stuff
     def __init__(self, purchases):
@@ -71,4 +79,7 @@ class RecordSale:
         for barcode in self._purchases:
             namePriceDict[_fetchName(barcode)] = _fetchPrice(barcode)
         return namePriceDict
+
+    def takePayment(self, amount):
+        _recordPayment(amount, self.getNames())
 

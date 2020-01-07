@@ -41,7 +41,11 @@ def displayDB(database):
     conn = sqlite3.connect(database)
     c = conn.cursor()
 
-    c.execute("SELECT * FROM ProductDetails")
+    if database == "products.db":
+        c.execute("SELECT * FROM ProductDetails")
+    elif database == "transactions.db":
+        c.execute("SELECT * FROM Transactions")
+        
     rows = c.fetchall()
 
     for row in rows:
@@ -67,11 +71,11 @@ def dbCheck(database):
         elif database == "transactions.db":
             c.execute('''CREATE TABLE Transactions
             (id int,
-            time text,
+            value int,
             solditems text 
             )''')
-            items = [1, 'Cash', 10, 2]
-            c.execute('INSERT INTO Transactions VALUES (?, ?, ?, ?)', items)
+            items = [0, 400, "B&J ICE CREAM"]
+            c.execute('INSERT INTO Transactions VALUES (?, ?, ?)', items)
 
         new_db.commit()
 

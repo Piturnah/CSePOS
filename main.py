@@ -35,7 +35,7 @@ def transaction():
     print('Total to pay: ' + "£{:,.2f}".format(float(bill)/100))
     
     
-    new_sale.takePayment(bill) # change second argument later
+    new_sale.takePayment(bill)
     
     reciet(new_sale.getNamesAndPrices(), bill)
 
