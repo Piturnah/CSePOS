@@ -10,6 +10,7 @@ getPurchases() returns purchases in a sale
 getTotalBill() returns the total bill in pence
 takePayment(amount, customer_ID) records a payment made to db
 getNames() returns list of names of the purchased items
+getNamesAndPrices() returns dict of <str : int> for names and prices
 """
 import sqlite3
 import os
@@ -32,18 +33,16 @@ def _fetchPrice(purchase):
 
     return rows[1]
 
-def _fetchNames(barcode_list):
+def _fetchName(barcode):
     names = []
 
     product_db = sqlite3.connect('products.db')
     c = product_db.cursor()
-    for barcode in barcode_list:
-        c.execute('SELECT * FROM ProductDetails WHERE barcode=?', (barcode,))
-        rows = c.fetchone()
+    c.execute('SELECT * FROM ProductDetails WHERE barcode=?', (barcode,))
+    rows = c.fetchone()
 
-        names.append(rows[2])
+    return rows[2]
 
-    return names
 
 class RecordSale:
 
@@ -56,11 +55,21 @@ class RecordSale:
         self._purchases = purchases
 
     def getNames(self):
-        return _fetchNames(self._purchases)
+        names = []
+        for purchase in self._purchases:
+            names.append(_fetchName(purchase))
+        
+        return names
         
     def getPurchases(self):
         return self._purchases
 
     def getTotalBill(self):
         return _totalBill(self._purchases)
+
+    def getNamesAndPrices(self):
+        namePriceDict = {}
+        for barcode in self._purchases:
+            namePriceDict[_fetchName(barcode)] = _fetchPrice(barcode)
+        return namePriceDict
 
