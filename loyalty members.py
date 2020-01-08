@@ -1,3 +1,4 @@
+## for it to work you need to ask the persons name and store it the the varible 'name' :)
 import csv
 
 def checkMember(name):
@@ -5,9 +6,12 @@ def checkMember(name):
         csvReader = csv.reader(csvLoyaltyPointsFile)
         for row in csvReader:
             if row[0] == name:
-                return True
-            else:
-                return False
+                return_points(name)
+                print(updatePoints(name,total))
+                return name
+                
+            
+        return False
 
 def return_points(name):
     with open ('loyaltyPoints.csv', 'r') as csvfile:
@@ -17,21 +21,30 @@ def return_points(name):
             if row[0] == name:
                 return row[1]
             
-def updatePoints(name):
-    totalBill = getTotalBill(self)
-    newPoints = totalBill * 10
-    oldPoints = return_points(name)
-    totalPoints = newPoints + oldPoints
-    return totalPoints
+        csvfile.close()
+    
+def updatePoints(name,total):
+    totalPoints = int(return_points(name))
+    totalPoints += total
+    ##return totalPoints 
     
     with open ('loyaltyPoints.csv', 'r') as csvfile:
         csvread = csv.reader(csvfile)
-        for row in csvread:
+        csvarray = list(csvread)
+        for row in csvarray:
             if row[0] == name:
-                line = csvfile(r)
-                line[0][1] = totalPoints
+                row[1]=totalPoints
+
+    with open('loyaltyPoints.csv','w') as csvwrite:
+        csvwriter = csv.writer(csvwrite)
+        for row in csvarray:
+            csvwriter.writerow(row)
                 
-        csvwrite = csv.writer(open('loyaltyPoints.csv', 'w'))
-        writer.writerows(line)
-               
-     
+        ##writer.writerows(line)
+
+       
+        csvfile.close()           
+    return totalPoints 
+
+
+
