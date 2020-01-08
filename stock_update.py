@@ -38,7 +38,6 @@ def shelf_reorder(barcode):
 def update_query(barcode,column,changeto):
     product_db = sqlite3.connect('products.db')
     c = product_db.cursor()
-    print(changeto)
     c.execute('UPDATE ProductDetails SET '+column+' = '+changeto+' WHERE barcode=?', (barcode,))
     product_db.commit()
     c.close()
