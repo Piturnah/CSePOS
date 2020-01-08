@@ -1,5 +1,5 @@
 import record_sale as r
-import csv
+import stock_update as s
 
 
 def reciet(priceDict, bill):
@@ -25,10 +25,9 @@ def transaction():
         else:
             item = True
             barcodes.append(barcode)
-            """undo comment below when fin v"""
-            #stock_update(barcode) #sending items to stock
             
     new_sale = r.RecordSale(barcodes) #sends items to get list of the items
+    s.stock_update(barcodes) #sending items to stock
     names = new_sale.getPurchases()
     bill = new_sale.getTotalBill()
 
@@ -52,7 +51,7 @@ def main_menu():
     if menu_option == '1':
         transaction()
     elif menu_option == '2':
-        dbCheck(database)
+        print(s.stock_return())
     elif menu_option == '3':
         pass
     else:
@@ -60,3 +59,4 @@ def main_menu():
 
 
 main_menu()
+
