@@ -45,7 +45,7 @@ def update_stock(barcode):
     c = product_db.cursor()
     shelftemp = _fetch(barcode,3)
     backroomtemp = _fetch(barcode,4)
-    update_query(barcode,'stock_shelves int',str(int(sheltemp) - 1))
+    update_query(barcode,'stock_shelves int',str(int(shelftemp) - 1))
     update_query(barcode,'stock_back int',str(int(backroomtemp) - 1))
     sqliteConnection.commit()
     print("Stock updated Succesfully")
