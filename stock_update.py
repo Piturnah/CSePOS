@@ -10,7 +10,7 @@
 
 import sqlite3
 import os
-from utility import pits_ml as ml
+from utility import pit_ml as ml
 
 def _fetch(purchase,num):
     product_db = sqlite3.connect('products.db')
