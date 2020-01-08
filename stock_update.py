@@ -78,4 +78,4 @@ def stock_return():
     return ("\n" + ml.col(stockList, "", just="r", delimiter = "."))
 
 if __name__ == "__main__":
-    print(stock_return()
+    print(stock_return())
