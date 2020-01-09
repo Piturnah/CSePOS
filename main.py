@@ -53,10 +53,11 @@ def main_menu():
     elif menu_option == '2':
         print(s.stock_return())
     elif menu_option == '3':
-        pass
+        quit()
     else:
         main_menu()
 
-
-main_menu()
+while True:
+    main_menu()
+    input()
 
