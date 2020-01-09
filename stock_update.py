@@ -9,7 +9,6 @@
 # stock_return - allows someone to view the current stock of all items in the database
 
 import sqlite3
-import os
 from utility import pit_ml as ml
 
 def _fetch(purchase,num):
