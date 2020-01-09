@@ -75,4 +75,4 @@ def stock_return():
 
 if __name__ == "__main__":
     print(stock_return())
-    
+   
